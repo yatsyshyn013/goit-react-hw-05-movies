@@ -21,7 +21,7 @@ const Movies = () => {
     const onSearchClick = (e) => {
         e.preventDefault()
 
-        if (query === "") {
+        if (query === "" || query === null) {
             
             return toast.error('The search field cannot be empty');
         } else {
