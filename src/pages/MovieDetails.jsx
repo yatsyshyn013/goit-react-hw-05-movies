@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { Suspense } from "react";
 import { Routes, Route, NavLink, Link, useParams, Outlet, useLocation  } from "react-router-dom";
 import axios from 'axios';
 import { MovieCard } from "components/MovieCard/MovieCard";
+
 
 
 const MovieDetails = () => {
@@ -82,7 +84,9 @@ const MovieDetails = () => {
         <Link to="cast">cast</Link>
         <Link to="reviews">reviews</Link>
         
-        <Outlet />
+        <Suspense fallback={<div>Loading page...</div>}>
+          <Outlet />
+          </Suspense>
                 
         </div>
         )}
