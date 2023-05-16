@@ -46,14 +46,14 @@ const Home = () => {
 
 
     return (
-        <>
-            <h2>Trending today</h2>
+        <div style={{padding: '40px',}}>
+            <h3>Trending today</h3>
             <ul>
                 {popularMovies.map(item => (
                     <li key={item.id}><Link to={`/movies/${item.id}`} state={{ from: location }}>{item.title}</Link></li>
                 ))}
             </ul>
-        </>
+        </div>
     )
 }
 

@@ -1,30 +1,22 @@
 import { Suspense } from "react";
-import { Outlet, NavLink } from "react-router-dom";
-import styled from '@emotion/styled'
+import { Outlet} from "react-router-dom";
+import {NavigationContainer, StyledLink} from "./SharedLayout.styled"
 
-const StyledLink = styled(NavLink)`
-  color: black;
-  text-decoration: none;
-  margin-left: 20px;
 
-  &.active {
-    color: #E186D6;
-  }
-`;
 
 const SharedLayout = () => {
     return (
          <div>
-            <header>
+        <NavigationContainer>
         
         <nav>
-          <StyledLink to="/" end>Home</StyledLink>
+        <StyledLink to="/" end>Home</StyledLink>
         <StyledLink to="/movies" >Movies</StyledLink>
         </nav>
-        </header>
+        </NavigationContainer>
         <Suspense fallback={<div>Loading page...</div>}>
           <Outlet />
-          </Suspense>
+        </Suspense>
     </div>
     )
 }

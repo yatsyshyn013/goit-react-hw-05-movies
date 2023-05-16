@@ -38,7 +38,7 @@ export const App = () => {
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        padding: '20px',
+        // padding: '20px',
         // justifyContent: 'center',
         alignItems: 'start',
         fontSize: 40,

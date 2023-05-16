@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, NavLink, Link, useParams, useSearchParams, Outlet, useLocation  } from "react-router-dom";
+import { useState} from "react";
+import { Link, useSearchParams, useLocation  } from "react-router-dom";
 import axios from 'axios';
-import { Field, Form, Formik, } from 'formik';
 import { FaSearch } from 'react-icons/fa/';
-  import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -12,7 +11,7 @@ const Movies = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get("query");
-        const location = useLocation();
+    const location = useLocation();
 
 
 
@@ -27,25 +26,30 @@ const Movies = () => {
         } else {
 
 
-            const API_KEY = '192012529bcb26605650afbe6892300f'
+        const API_KEY = '192012529bcb26605650afbe6892300f'
         const BASE_URL = 'https://api.themoviedb.org/3/'
         axios.defaults.baseURL = BASE_URL;
         
-        async function movieSearch() {
-        const url = `search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
-            const response = await axios.get(url)
+            async function movieSearch() {
             
-            const popularMoviesArray = await response.data.results.map(({ id, title }) => {
+                try {
+                    const url = `search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+                    const response = await axios.get(url)
+            
+                    const MoviesArray = await response.data.results.map(({ id, title }) => {
                     return { id, title }
                 })
         
      
-        setQuerySearch([...popularMoviesArray])
-        // console.log(popularMoviesArray);
-        // console.log(response.data.results);
+                    setQuerySearch([...MoviesArray])
+                } catch (error) {
+                    console.log(error);
+                }
+            
+      
     }
-    movieSearch()
-        }
+        movieSearch()
+    }
 
         
 
@@ -53,19 +57,46 @@ const Movies = () => {
 
 
     return (
-        <>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '40px',
+        }}>
             
-            <form onSubmit={onSearchClick}>
+    <form onSubmit={onSearchClick} style={{
+                display: 'flex',
+                // justifyContent: 'center',
+                alignItems: 'center'
+        }}>
       {/* <h1>Products</h1> */}
       <input
         type="text"
         value={query}
-        onChange={e => setSearchParams({ query: e.target.value })}
+                    onChange={e => setSearchParams({ query: e.target.value })}
+                    style={{
+                        height: '30px',
+                        width: '300px',
+                        fontSize: '20px'
+        }}
                 />
-                <button  type="submit" className="button">
-                            <FaSearch/>
-                </button>
-            </form>
+        <button type="submit" style={{
+                    height: '35px',
+                    border: 'none',
+                    font: 'inherit',
+                    color: 'inherit',
+                    backgroundColor: '#E186D6',
+                    color: 'white'
+                    
+                        
+        }}>
+                            <FaSearch  style={{
+                                height: '30px',
+                                display: 'flex',
+                                alignItems: 'center'
+
+        }}/>
+        </button>
+        </form>
             
             <ul>
                 {querySearch.map(item => (
@@ -75,11 +106,12 @@ const Movies = () => {
 
             
             <ToastContainer
-          autoClose={3000}
-          position="top-right"
+                autoClose={3000}
+                position="top-right"
                 theme="colored"
+                style={{ fontSize:'30px'}}
 />
-    </>)
+    </div>)
 }
 
 export default Movies;
