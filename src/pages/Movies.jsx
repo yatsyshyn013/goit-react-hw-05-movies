@@ -4,7 +4,6 @@ import axios from 'axios';
 import { FaSearch } from 'react-icons/fa/';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { hover } from "@testing-library/user-event/dist/hover";
 
 import styled from '@emotion/styled'
 

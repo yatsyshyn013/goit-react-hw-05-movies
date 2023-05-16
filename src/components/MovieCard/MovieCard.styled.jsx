@@ -14,6 +14,10 @@ export const GoBackBtn = styled(Link)`
     padding: 10px;
     margin: 20px;
     margin-left: 0px;
+
+    :hover{
+        background-color: #dd9bd5;
+    }
 `;
 
 export const MovieContainer = styled.div`
@@ -61,7 +65,9 @@ export const PageLink = styled(Link)`
         margin-left: 50px;
     }
 
-    
+    :hover{
+        background-color: #dd9bd5;
+    }
     
 `
 export const MovieName = styled.div`
