@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, NavLink, Link, useLocation } from "react-router-dom";
 import axios from 'axios';
+import styled from '@emotion/styled'
 
-
-
+const StyledLinks = styled.li`
+    :hover {
+        color: #E186D6
+    }
+`
 
 
 
@@ -50,7 +54,7 @@ const Home = () => {
             <h3>Trending today</h3>
             <ul>
                 {popularMovies.map(item => (
-                    <li key={item.id}><Link to={`/movies/${item.id}`} state={{ from: location }}>{item.title}</Link></li>
+                    <StyledLinks key={item.id}><Link to={`/movies/${item.id}`} state={{ from: location }} style={{ color: 'black', textDecoration:'none'}}>{item.title}</Link></StyledLinks>
                 ))}
             </ul>
         </div>
