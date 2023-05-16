@@ -12,25 +12,6 @@ const NotFound = lazy(() => import("../pages/NotFound"))
 const Cast = lazy(() => import("./Cast/Cast"))
 const Reviews = lazy(() => import("./Reviews/Reviews"))
 
-// import Home from "pages/Home";
-// import Movies from "pages/Movies"
-// import MovieDetails from "pages/MovieDetails";
-// import NotFound from "pages/NotFound";
-// import Cast from "./Cast/Cast";
-// import Reviews from "./Reviews/Reviews";
-
-
-
-// const StyledLink = styled(NavLink)`
-//   color: black;
-//   text-decoration: none;
-//   margin-left: 20px;
-
-//   &.active {
-//     color: #E186D6;
-//   }
-// `;
-
 export const App = () => {
   return (
     <div

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import { Suspense } from "react";
-import { Link, useParams, Outlet, useLocation } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { MovieCard } from "components/MovieCard/MovieCard";
 import { fetchMovie } from "services/API";

@@ -9,7 +9,7 @@ export function MovieCard({ moviesRender }) {
     const {poster, title, date, genreList, overview, rate} = moviesRender
     const location = useLocation();
     const backLinkLocationHref = useRef(location.state?.from ?? '/');
-    // console.log(moviesRender);
+   
     return (
     <div style={{
                 height: '100vh',
