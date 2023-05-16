@@ -1,9 +1,9 @@
 import { useState} from "react";
 import { Link, useSearchParams, useLocation  } from "react-router-dom";
-import axios from 'axios';
 import { FaSearch } from 'react-icons/fa/';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchMovie } from "services/API";
 
 import styled from '@emotion/styled'
 
@@ -44,16 +44,12 @@ const Movies = () => {
             return toast.error('The search field cannot be empty');
         } else {
 
-
-        const API_KEY = '192012529bcb26605650afbe6892300f'
-        const BASE_URL = 'https://api.themoviedb.org/3/'
-        axios.defaults.baseURL = BASE_URL;
         
             async function movieSearch() {
             
                 try {
-                    const url = `search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
-                    const response = await axios.get(url)
+                    
+                    const response = await fetchMovie({fetchInfo: `search/movie?language=en-US&query=${query}&page=1&include_adult=false`})
             
                     const MoviesArray = await response.data.results.map(({ id, title }) => {
                     return { id, title }
@@ -84,7 +80,7 @@ const Movies = () => {
             
     <form onSubmit={onSearchClick} style={{
                 display: 'flex',
-                // justifyContent: 'center',
+               
                 alignItems: 'center'
         }}>
       {/* <h1>Products</h1> */}

@@ -3,26 +3,22 @@ import { useState, useEffect } from "react";
 import { Link, useParams, Outlet, useLocation  } from "react-router-dom";
 import axios from 'axios';
 import { MovieCard } from "components/MovieCard/MovieCard";
+import { fetchMovie } from "services/API";
 
 
 
 const MovieDetails = () => {
     const [movieInfo, setMovieInfo] = useState({})
     const { moviesId } = useParams();
-    // const location = useLocation();
+
 
     useEffect(() => {
-
-    const API_KEY = '192012529bcb26605650afbe6892300f'
-    const BASE_URL = 'https://api.themoviedb.org/3/'
-    axios.defaults.baseURL = BASE_URL;
     
     async function chosenMovie() {
         setMovieInfo(null)
 
         try {
-            const url = `movie/${moviesId}?api_key=${API_KEY}&language=en-US`
-            const response = await axios.get(url)
+            const response = await fetchMovie({ fetchInfo: `movie/${moviesId}?language=en-US` })
           
 
             function normalizeMovie ({ poster_path, overview, genres, popularity, release_date, id, title, vote_average }) {

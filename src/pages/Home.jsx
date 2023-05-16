@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from 'axios';
 import styled from '@emotion/styled'
+import { fetchMovie } from "services/API";
 
 const StyledLinks = styled.li`
     :hover {
@@ -18,26 +19,38 @@ const Home = () => {
 
     useEffect(() => {
 
-        const API_KEY = '192012529bcb26605650afbe6892300f'
-        const BASE_URL = 'https://api.themoviedb.org/3/'
-        axios.defaults.baseURL = BASE_URL;
 
         async function fetchMovies() {
 
             setPopularMovies([])
 
+            // try {
+            //     const url = `trending/movie/day?api_key=${API_KEY}`
+            //     const response = await axios.get(url)
+            //     const popularMoviesArray = await response.data.results.map(({ id, title }) => {
+            //         return { id, title }
+            //     })
+            //     // console.log(popularMoviesArray);
+            //     // console.log(response.data.results);
+            //     // return response.data
+
+            //     setPopularMovies([...popularMoviesArray])
+            //     // console.log(popularMovies);
+            // } catch (error) {
+            //     console.log(error);
+            // }
+
             try {
-                const url = `trending/movie/day?api_key=${API_KEY}`
-                const response = await axios.get(url)
+               
+                const response = await fetchMovie({ fetchInfo: 'trending/movie/day' })
+                
                 const popularMoviesArray = await response.data.results.map(({ id, title }) => {
                     return { id, title }
                 })
-                // console.log(popularMoviesArray);
-                // console.log(response.data.results);
-                // return response.data
+               
 
                 setPopularMovies([...popularMoviesArray])
-                // console.log(popularMovies);
+              
             } catch (error) {
                 console.log(error);
             }
