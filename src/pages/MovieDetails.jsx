@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 // import { Suspense } from "react";
-import { Link, useParams, Outlet, useLocation  } from "react-router-dom";
-import axios from 'axios';
+import { Link, useParams, Outlet, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import { MovieCard } from "components/MovieCard/MovieCard";
 import { fetchMovie } from "services/API";
 
@@ -13,11 +13,12 @@ const MovieDetails = () => {
 
 
     useEffect(() => {
-    
+    const controller = new AbortController();
     async function chosenMovie() {
         setMovieInfo(null)
 
         try {
+            
             const response = await fetchMovie({ fetchInfo: `movie/${moviesId}?language=en-US` })
           
 
@@ -44,7 +45,8 @@ const MovieDetails = () => {
             await setMovieInfo(movies)
        
             } catch (error) {
-                console.log(error);
+            console.log(error);
+            toast.error('We did not find any movies for your request')
             }
             
     }
@@ -52,7 +54,9 @@ const MovieDetails = () => {
 
 
         chosenMovie()
-        
+        return () => {
+            controller.abort();
+    };
 }, [moviesId])
     
    
@@ -60,7 +64,12 @@ const MovieDetails = () => {
     return (<div style={{padding: '40px',}}>
         
         {movieInfo !== null && (<MovieCard moviesRender={movieInfo} />)}
-            
+        <ToastContainer
+                autoClose={3000}
+                position="top-right"
+                theme="colored"
+                style={{ fontSize:'30px'}}
+/>    
             </div>)
 }
 

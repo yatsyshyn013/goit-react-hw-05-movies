@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useRef  } from "react";
 import { Link, useParams, Outlet, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { AdditionalInfo, GoBackBtn, MovieInfo, MovieContainer, PageLink, MovieName, MovieGenres, MovieOverview } from "./MovieCard.styled";
@@ -8,7 +8,7 @@ import { FaArrowLeft } from 'react-icons/fa/';
 export function MovieCard({ moviesRender }) {
     const {poster, title, date, genreList, overview, rate} = moviesRender
     const location = useLocation();
-    
+    const backLinkLocationHref = useRef(location.state?.from ?? '/');
     // console.log(moviesRender);
     return (
     <div style={{
@@ -21,7 +21,7 @@ export function MovieCard({ moviesRender }) {
         }}>
         { moviesRender !== undefined && (
          <>
-        <GoBackBtn to={location.state?.from ?? "/"}><FaArrowLeft/></GoBackBtn>   
+        <GoBackBtn to={backLinkLocationHref.current}><FaArrowLeft/></GoBackBtn>   
        
             <MovieContainer>
             <div>

@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import { Link, useSearchParams, useLocation  } from "react-router-dom";
 import { FaSearch } from 'react-icons/fa/';
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { fetchMovie } from "services/API";
 
 import styled from '@emotion/styled'
+import Searchbar from "components/Searchbar/Searchbar";
 
 const StyledLinks = styled.li`
     :hover {
@@ -36,15 +37,19 @@ const Movies = () => {
 
     const [querySearch, setQuerySearch] = useState([])
 
-    const onSearchClick = (e) => {
-        e.preventDefault()
 
-        if (query === "" || query === null) {
-            
-            return toast.error('The search field cannot be empty');
-        } else {
+    useEffect(() => {
+        const controller = new AbortController();
+        
 
         
+
+        if (!query) {
+            return
+        }
+            else {
+            
+            
             async function movieSearch() {
             
                 try {
@@ -52,10 +57,15 @@ const Movies = () => {
                     const response = await fetchMovie({fetchInfo: `search/movie?language=en-US&query=${query}&page=1&include_adult=false`})
             
                     const MoviesArray = await response.data.results.map(({ id, title }) => {
+                        
                     return { id, title }
-                })
-        
-     
+                    })
+                    if (MoviesArray.length === 0 ) {
+                        
+                        return toast.error('We did not find any movies for your request')}
+
+                    
+
                     setQuerySearch([...MoviesArray])
                 } catch (error) {
                     console.log(error);
@@ -66,9 +76,11 @@ const Movies = () => {
         movieSearch()
     }
 
-        
+        return () => {
+            controller.abort();
+    };
+    }, [query])
 
-    }
 
 
     return (
@@ -77,32 +89,10 @@ const Movies = () => {
             flexDirection: 'column',
             padding: '40px',
         }}>
-            
-    <form onSubmit={onSearchClick} style={{
-                display: 'flex',
-               
-                alignItems: 'center'
-        }}>
-      {/* <h1>Products</h1> */}
-      <input
-        type="text"
-        value={query}
-                    onChange={e => setSearchParams({ query: e.target.value })}
-                    style={{
-                        height: '30px',
-                        width: '300px',
-                        fontSize: '20px'
-        }}
-                />
-        <StyledBtn type="submit" >
-                            <FaSearch  style={{
-                                height: '30px',
-                                display: 'flex',
-                                alignItems: 'center'
 
-        }}/>
-        </StyledBtn>
-        </form>
+            <Searchbar setSearchParams={setSearchParams} />
+            
+    
             
             <ul>
                 {querySearch.map(item => (
@@ -111,12 +101,6 @@ const Movies = () => {
             </ul>
 
             
-            <ToastContainer
-                autoClose={3000}
-                position="top-right"
-                theme="colored"
-                style={{ fontSize:'30px'}}
-/>
     </div>)
 }
 

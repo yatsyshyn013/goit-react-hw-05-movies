@@ -18,7 +18,7 @@ const Home = () => {
     const location = useLocation();
 
     useEffect(() => {
-
+        const controller = new AbortController();
 
         async function fetchMovies() {
 
@@ -58,7 +58,9 @@ const Home = () => {
 }
 
         fetchMovies()
-        
+        return () => {
+            controller.abort();
+    };
     }, [])
 
 

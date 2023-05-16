@@ -38,8 +38,6 @@ export const App = () => {
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        // padding: '20px',
-        // justifyContent: 'center',
         alignItems: 'start',
         fontSize: 40,
         color: '#010101',
@@ -48,10 +46,6 @@ export const App = () => {
       }}
     >
 
-      {/* <nav>
-        <StyledLink to="/" end>Home</StyledLink>
-        <StyledLink to="/movies" >Movies</StyledLink>
-      </nav> */}
 
       <Routes>
         <Route path="/" element={<SharedLayout/>}>
