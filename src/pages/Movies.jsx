@@ -13,6 +13,18 @@ const StyledLinks = styled.li`
     }
 `
 
+const StyledBtn = styled.button`
+                height: 35px;
+                border: none;
+                font: inherit;
+                color: inherit;
+                background-color: #E186D6;
+                color: white;
+                :hover {
+                        background-color: #dd9bd5
+                    }
+`
+
 
 const Movies = () => {
 
@@ -86,23 +98,14 @@ const Movies = () => {
                         fontSize: '20px'
         }}
                 />
-        <button type="submit" style={{
-                    height: '35px',
-                    border: 'none',
-                    font: 'inherit',
-                    color: 'inherit',
-                    backgroundColor: '#E186D6',
-                    color: 'white'
-                    
-                        
-        }}>
+        <StyledBtn type="submit" >
                             <FaSearch  style={{
                                 height: '30px',
                                 display: 'flex',
                                 alignItems: 'center'
 
         }}/>
-        </button>
+        </StyledBtn>
         </form>
             
             <ul>
